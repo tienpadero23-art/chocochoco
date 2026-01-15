@@ -92,6 +92,13 @@ on <strong>January 23, 2026</strong>.
 </div>
 
 <script>
+// PASSWORD PROTECTION
+const password = "012322";
+const input = prompt("Enter the password to see your invitation 💌:");
+if(input !== password) {
+  document.body.innerHTML = "<h1>Access Denied ❌</h1><p>Wrong password.</p>";
+}
+  
 function yes() {
   document.body.innerHTML = `
     <div style="padding:60px; font-family:Georgia, serif; text-align:center;">

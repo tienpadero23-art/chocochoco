@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>4th Anniversary Invitation</title>
+
+<style>
+body {
+  font-family: Georgia, serif;
+  background: linear-gradient(to bottom, #fff0f5, #ffe5ec);
+  text-align: center;
+  padding: 40px 20px;
+  overflow-x: hidden;
+}
+
+h1 { color: #c9184a; }
+h2 { color: #800f2f; }
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 15px;
+  margin: 15px 0;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  margin: 15px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background-color: #ff4d6d;
+  color: white;
+}
+
+#noBtn {
+  background-color: #adb5bd;
+  color: black;
+  position: absolute;
+}
+
+#countdown {
+  font-size: 22px;
+  margin: 20px 0;
+  color: #6a040f;
+  font-weight: bold;
+}
+
+audio {
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="content">
+
+<h1>My Love ❤️</h1>
+
+<p>
+I am formally inviting you to celebrate our  
+<strong>4th Anniversary</strong><br>
+on <strong>January 23, 2026</strong>.
+</p>
+
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+
+<div id="countdown"></div>
+
+<h2>Will you go on a date with me?</h2>
+
+<button id="yesBtn" onclick="yes()">Yes 💕</button>
+<button id="noBtn">No 🙄</button>
+
+<audio controls autoplay loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+function yes() {
+  document.body.innerHTML = `
+    <div style="padding:60px; font-family:Georgia, serif; text-align:center;">
+      <h1>HERNAME said YES 💖</h1>
+      <p style="font-size:20px;">
+        Four years with you, HERNAME, have been my greatest blessing.<br><br>
+        Thank you for choosing and loving me every day.<br><br>
+        These past four years may not have been easy for us, but I’m grateful that we made it through together.<br><br>
+        Four years down, forever to go.<br><br>
+        I love you with all my heart, and I can’t wait to spend the rest of my life with you. 🤎
+      </p>
+    </div>
+  `;
+}
+
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 60);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+const countdownEl = document.getElementById("countdown");
+const targetDate = new Date("January 23, 2026 00:00:00").getTime();
+
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+
+  if (diff <= 0) {
+    countdownEl.innerHTML = "Today is our anniversary 💞";
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  countdownEl.innerHTML =
+    `${days} days ${hours}h ${minutes}m ${seconds}s left 💗`;
+}, 1000);
+</script>
+
+</body>
+</html>

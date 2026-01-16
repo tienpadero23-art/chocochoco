@@ -10,23 +10,13 @@ body {
   background: linear-gradient(to bottom, #fff0f5, #ffe5ec);
   text-align: center;
   padding: 40px 20px;
-  overflow-x: hidden;
 }
 
-h1 { color: #c9184a; }
-h2 { color: #800f2f; }
+h1, h2 { color: #800f2f; }
 
 .container {
-  max-width: 600px;
+  max-width: 650px;
   margin: auto;
-}
-
-img {
-  width: 100%;
-  max-width: 350px;
-  border-radius: 15px;
-  margin: 15px 0;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 button {
@@ -45,103 +35,115 @@ button {
 
 #noBtn {
   background-color: #adb5bd;
-  color: black;
   position: absolute;
 }
 
-#countdown {
-  font-size: 22px;
-  margin: 20px 0;
-  color: #6a040f;
-  font-weight: bold;
+img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 15px;
+  margin-top: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-audio {
-  margin-top: 20px;
+#countdown {
+  font-size: 80px;
+  color: #ff4d6d;
+  margin-top: 50px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container" id="content">
+<div class="container" id="page">
 
-<h1>My Love ❤️</h1>
+<h1>For Marianne’s eyes only 🤎</h1>
+<p>Please enter the password</p>
 
-<p>
-I am formally inviting you to celebrate our  
-<strong>4th Anniversary</strong><br>
-on <strong>January 23, 2026</strong>.
-</p>
-
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-
-<div id="countdown"></div>
-
-<h2>Will you go on a date with me?</h2>
-
-<button id="yesBtn" onclick="yes()">Yes 💕</button>
-<button id="noBtn">No 🙄</button>
-
-<audio controls autoplay loop>
-  <source src="song.mp3" type="audio/mpeg">
-</audio>
+<input type="password" id="pw" placeholder="Password">
+<br><br>
+<button onclick="checkPassword()">Enter</button>
 
 </div>
 
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-// PASSWORD PROTECTION
-const password = "012322";
-const input = prompt("Enter the password to see your invitation 💌:");
-if(input !== password) {
-  document.body.innerHTML = "<h1>Access Denied ❌</h1><p>Wrong password.</p>";
+function checkPassword() {
+  const input = document.getElementById("pw").value;
+  if (input === "012322") {
+    showInvite();
+  } else {
+    alert("Wrong password 💔");
+  }
 }
-  
-function yes() {
-  document.body.innerHTML = `
-    <div style="padding:60px; font-family:Georgia, serif; text-align:center;">
-      <h1>MARIANNE said YES 💖</h1>
-      <p style="font-size:20px;">
-        Four years with you, my Love, have been my greatest blessing.<br><br>
-        Thank you for choosing and loving me every single day.<br><br>
-        These past four years may not have been easy, but I’m grateful that we made it through everything together.<br><br>
-        Four years down, forever to go.<br><br>
-        I love you with all my heart, and I can’t wait to spend the rest of my life with you. 🤎
-      </p>
-    </div>
+
+function showInvite() {
+  document.getElementById("page").innerHTML = `
+    <h1>My Love ❤️</h1>
+
+    <p>
+      I am formally inviting you to celebrate our  
+      <strong>4th Anniversary</strong><br><br>
+
+      📅 <strong>January 23, 2026</strong><br>
+      ⏰ <strong>7:00 PM</strong><br>
+      📍 <strong>Your chosen place here</strong>
+    </p>
+
+    <h2>Will you go on a date with me?</h2>
+
+    <button id="yesBtn" onclick="startCountdown()">Yes 💕</button>
+    <button id="noBtn">No 🙄</button>
+  `;
+
+  const noBtn = document.getElementById("noBtn");
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 60);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  });
+}
+
+function startCountdown() {
+  let count = 3;
+  document.getElementById("page").innerHTML = `<div id="countdown">${count}</div>`;
+
+  const timer = setInterval(() => {
+    count--;
+    if (count > 0) {
+      document.getElementById("countdown").textContent = count;
+    } else {
+      clearInterval(timer);
+      showSurprise();
+    }
+  }, 1000);
+}
+
+function showSurprise() {
+  document.getElementById("music").play();
+
+  document.getElementById("page").innerHTML = `
+    <h1>Marianne said YES 💖</h1>
+
+    <img src="pic1.jpg">
+    <img src="pic2.jpg">
+    <img src="pic3.jpg">
+    <img src="pic4.jpg">
+
+    <p style="font-size:20px; margin-top:30px;">
+      Four years with you, my love, have been my greatest blessing.<br><br>
+      Thank you for choosing and loving me every day.<br><br>
+      These past four years may not have been easy for us, but I’m grateful that we made it through together.<br><br>
+      Four years down, forever to go.<br><br>
+      I love you with all my heart, and I can’t wait to spend the rest of my life with you. 🤎
+    </p>
   `;
 }
-
-const noBtn = document.getElementById("noBtn");
-noBtn.addEventListener("mouseover", () => {
-  const x = Math.random() * (window.innerWidth - 120);
-  const y = Math.random() * (window.innerHeight - 60);
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-});
-
-const countdownEl = document.getElementById("countdown");
-const targetDate = new Date("January 23, 2026 00:00:00").getTime();
-
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = targetDate - now;
-
-  if (diff <= 0) {
-    countdownEl.innerHTML = "Today is our anniversary 💞";
-    return;
-  }
-
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  countdownEl.innerHTML =
-    `${days} days ${hours}h ${minutes}m ${seconds}s left 💗`;
-}, 1000);
 </script>
 
 </body>
